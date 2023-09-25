@@ -1,0 +1,78 @@
+name: newsco
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+
+  cupertino_icons: ^1.0.2
+  carousel_slider: ^4.2.1
+  firebase_core: ^2.15.1
+  buttons_tabbar: ^1.3.7+1
+  dot_navigation_bar:
+  http: ^1.1.0
+  readmore: ^2.1.0
+  firebase_auth: ^4.10.0
+  cloud_firestore:
+  provider: ^6.0.5
+  flutter_multi_select_items: ^0.4.2
+  shared_preferences:
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^2.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "path/to/icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+
+flutter:
+
+
+  uses-material-design: true
+
+
+  assets:
+   - assets/images/
+
+  fonts:
+   - family: NewYork
+     fonts:
+       - asset: assets/fonts/newyork.otf
+         weight: 900
+   - family: Nunito
+     fonts:
+       - asset: assets/fonts/Nunito-Black.ttf
+         weight: 100
+       - asset: assets/fonts/Nunito-Bold.ttf
+         weight: 200
+       - asset: assets/fonts/Nunito-ExtraBold.ttf
+         weight: 300
+       - asset: assets/fonts/Nunito-Light.ttf
+         weight: 400
+       - asset: assets/fonts/Nunito-Regular.ttf
+         weight: 500
+       - asset: assets/fonts/Nunito-SemiBold.ttf
+         weight: 600
