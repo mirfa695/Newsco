@@ -1,19 +1,32 @@
-import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:newsco/services/api_service.dart';
 
 import '../model_class/class_article.dart';
 import 'package:http/http.dart' as http;
 
-class ApiProvider extends ChangeNotifier{
-  Future<List<Article>> fetchApi()async{
+class ApiProvider extends ChangeNotifier {
+  Future fetchApi(BuildContext context) async {
+    try {
+      var data=await ApiServices().fetchData1();
+      notifyListeners();
+      return data;
+    }
+    catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
 
-    final response = await http.get(Uri.parse(
-        'https://newsapi.org/v2/top-headlines?country=us&apiKey=3e31c8fd915d47ce97f187b1657495ac'));
-    var data=jsonDecode(response.body);
-    List<Article> article = data["articles"].map<Article>((e){
-      return Article.fromJson(e);
-    }).toList();
-    return article;
+  Future getApi(BuildContext context) async {
+    try {
+     var data= await ApiServices().getdata();
+      notifyListeners();
+      return data;
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+      notifyListeners();
+    }
   }
 }

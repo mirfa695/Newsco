@@ -5,6 +5,7 @@ import 'package:newsco/custom_widgets/custom_container.dart';
 import 'package:newsco/custom_widgets/custom_search_bar.dart';
 import 'package:newsco/provider/api_provider.dart';
 import 'package:newsco/routing/route_name.dart';
+import 'package:newsco/screens/Navigation/home_page/see_all_tabs/technology_page.dart';
 import 'package:newsco/screens/Navigation/home_page/tabs/healthy_page.dart';
 import 'package:newsco/utilities/const_colors.dart';
 import 'package:provider/provider.dart';
@@ -88,39 +89,35 @@ class _HomePageState extends State<HomePage>
           const SizedBox(
             height: 10,
           ),
-          // FutureBuilder(future: context.read<ApiProvider>().fetchApi(), builder: (context,snapshot){
-          //   if(snapshot.hasData){}return null;
-          // }),
-          CarouselSlider(
-              items: [
-                InkWell(
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteName.newsDetails);
-                    },
-                    child: CustomContainer(
-                      image:
-                          'https://media.cnn.com/api/v1/images/stellar/prod/230822164110-mexico-bus-crash-0822.jpg?c=original',
-                      text1: '16 dead and 36 injured after bus carrying migrants and locals crashes in Mexico, officials say',
-                      text: 'By Mirfa',
-                      text2: 'At least 16 people have been killed and 36 more injured',
-                    )),
-                CustomContainer(
-                image:
-                'https://www.livemint.com/lm-img/img/2023/07/06/1600x900/ASSIGNMENT-NAME-IN-BRIEF-7_1688177030463_1688616599444.jpg',
-                ),
-                CustomContainer(
-                  image:
-                  'https://media.cnn.com/api/v1/images/stellar/prod/230822164110-mexico-bus-crash-0822.jpg?c=original',
-                )
-              ],
-              options: CarouselOptions(
-                enlargeFactor: .15,
-                initialPage: 0,
-                enlargeCenterPage: true,
-                viewportFraction: .87,
-                aspectRatio:16/9,
-                enableInfiniteScroll: false
-              )),
+          SizedBox(
+            height: 230,
+          child: FutureBuilder(future: context.read<ApiProvider>().getApi(context),
+              builder: (context,snapshot){
+            if(snapshot.hasData){
+
+              return Container(
+                child: ListView.builder(scrollDirection: Axis.horizontal,
+                  itemCount: 5,
+                    itemBuilder: (BuildContext context,int index){
+                  return CarouselSlider(
+                    items:[ CustomContainer(image: snapshot.data["articles"][index]["urlToImage"],
+                   text: snapshot.data["articles"][index]["author"],
+                      text1: snapshot.data["articles"][index]["title"],
+                      text2: snapshot.data["articles"][index]["description"],
+                    ),],
+                    options: CarouselOptions(
+                      aspectRatio: 16/9,
+                      enlargeCenterPage: true,
+                      enableInfiniteScroll: false,
+                      viewportFraction: 0.9,
+                    ),
+
+                  );
+                }),
+              );
+            }return Text('Error');
+              }),
+          ),
           const SizedBox(
             height: 10,
           ),
@@ -174,7 +171,7 @@ class _HomePageState extends State<HomePage>
             child: TabBarView(controller: _tabController,
                 children: const [
               HealthyPage(),
-              Text( 'hei'),
+              TechnologyPage(),
               Text('dbj'),
               Text('bxcu',
               ),

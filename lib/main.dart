@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:newsco/provider/api_provider.dart';
 import 'package:newsco/provider/entry_provider.dart';
 import 'package:newsco/provider/firestore_provider.dart';
-import 'package:newsco/provider/sharedprefeence_provider.dart';
 import 'package:newsco/routing/route_class.dart';
 import 'package:newsco/routing/route_name.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +19,6 @@ Future<void> main() async {
       ChangeNotifierProvider<EntryProvider>(
           create: (context) => EntryProvider()),
       ChangeNotifierProvider<FirestoreProvider>(create: (context)=>FirestoreProvider()),
-      ChangeNotifierProvider<SharedPreferenceProvider>(create: (context)=>SharedPreferenceProvider()),
       ChangeNotifierProvider<ApiProvider>(create: (context)=>ApiProvider())
     ],
     child: const Main(),

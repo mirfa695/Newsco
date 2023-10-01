@@ -74,9 +74,21 @@ class ProfilePage extends StatelessWidget {
         const SizedBox(height: 50,),
         SizedBox(
           width: 200,
-            child: ElevatedButton(onPressed: () async {
-              await context.read<EntryProvider>().setBool(false);
-              await context.read<EntryProvider>().signOut();
+            child: ElevatedButton(onPressed: ()  {
+              showDialog(context: context,
+                builder: (context)=>
+                    AlertDialog(title: const Text('Log Out'),content: const Text('Are you sure to Log out'),
+                 actions: [
+                   TextButton(
+                     onPressed: () async {
+                       await context.read<EntryProvider>().setBool(false);
+                       await context.read<EntryProvider>().signOut();
+                       Navigator.pushNamed(context, RouteName.loginRoute);
+                     }, child: const Text('Yes')),
+                   TextButton(onPressed: (){
+                   Navigator.pop(context);
+                 }, child: const Text('No'))],),
+              );
               // Navigator.pushNamed(context, RouteName.loginRoute);
               },style: ConstEButton.Ebutton, child: const Text('Log Out'),))
       ],

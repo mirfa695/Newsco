@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:newsco/custom_widgets/custom_text_field.dart';
 import 'package:newsco/model_class/class_user.dart';
@@ -16,6 +17,7 @@ class RegisterPage extends StatelessWidget {
   final nameTextEditingController=TextEditingController();
   final dobTextEditingController=TextEditingController();
   final formKey = GlobalKey<FormState>();
+  var value;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +59,24 @@ class RegisterPage extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+                InkWell(onTap: (){
+                  CalendarDatePicker2(config: CalendarDatePicker2Config(), value: value,
+                    onValueChanged: (dates)=>value=dates,
+                  );
+                },
+                  
+                  child: Container(
+                    height: 60,width: double.infinity,
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Colors.grey.withOpacity(.3)),
+                    child: Row(children: [
+                      const SizedBox(width: 11,),
+                      Icon(Icons.date_range,color: Colors.black.withOpacity(.3),),
+                      const SizedBox(width: 11,),
+                      Text('Date of Birth',style: TextStyle(color:Colors.black.withOpacity(.5),fontSize: 15),)
+                    ],),
+                  ),
+                ),
+                const SizedBox(height: 10,),
                 CustomTextField(
                   text: 'Date of Birth',
                   icon: Icons.access_time,
@@ -106,11 +126,7 @@ class RegisterPage extends StatelessWidget {
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
                           User1 data=User1(name: nameTextEditingController.text,email: emailTextEditingController.text,dob: dobTextEditingController.text);
-
-                          await context.read<EntryProvider>().registerUserWithEmail(emailTextEditingController.text, passwordTextEditingController.text,context
-                          );
-                          await context.read<FirestoreProvider>().registerDatabase(data);
-                          Navigator.pushNamed(context, RouteName.homeRoute);
+                          await context.read<EntryProvider>().registerUserWithEmail(data, passwordTextEditingController.text, context);
                         }
                       },
                       style:ConstEButton.Ebutton,

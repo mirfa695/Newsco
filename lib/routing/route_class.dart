@@ -18,7 +18,7 @@ settings.name
 ){
   case  RouteName.loginRoute:return MaterialPageRoute(builder: (context)=>const EntryPage());
   case  RouteName.homeRoute:return MaterialPageRoute(builder: (context)=>const NavPage());
-  case RouteName.newsDetails:return MaterialPageRoute(builder: (context)=>const DetailNewsPage());
+  case RouteName.newsDetails:return MaterialPageRoute(builder: (context)=> DetailNewsPage());
   case RouteName.allNewsPage:return MaterialPageRoute(builder: (context)=>const SeeAllPage());
   case RouteName.profileRoute:return MaterialPageRoute(builder: (context)=>const MyProfilePage());
   default:return MaterialPageRoute(builder: (context)=>const Overview());

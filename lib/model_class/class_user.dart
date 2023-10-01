@@ -3,6 +3,7 @@ class User1 {
   String? email;
   String? dob;
 
+
   User1({this.name, this.email, this.dob});
 
   User1.fromJson(Map<String, dynamic> json) {

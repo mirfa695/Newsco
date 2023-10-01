@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsco/custom_widgets/custom_text_field.dart';
 import 'package:newsco/provider/entry_provider.dart';
-import 'package:newsco/routing/route_name.dart';
-
 import 'package:newsco/utilities/const_colors.dart';
 import 'package:newsco/utilities/const_elavatedbutton.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +13,6 @@ class LoginPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final entryProvider= context.read<EntryProvider>();
     return Scaffold(resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.only(left: 15.0, right: 15, top: 50),
@@ -57,19 +54,28 @@ class LoginPage extends StatelessWidget {
                 ),
                 SizedBox(
                     width: 120,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          await entryProvider.signInWithEmail(emailTextEditingController.text,
-                              passwordTextEditingController.text);
-                          await entryProvider.setBool(true);
-                          Navigator.pushNamed(context, RouteName.homeRoute);
-                        }
+                    child: Consumer<EntryProvider>(
+                      builder: (context, value, child) {
+
+                        return ElevatedButton(
+                          onPressed: ()  {
+                            if (formKey.currentState!.validate()) {
+
+                               value.signInWithEmail(emailTextEditingController.text,
+                                  passwordTextEditingController.text,context);
+
+
+                            }
+                          },
+                          style: ConstEButton.Ebutton,
+                          child: value.isLoading ?CircularProgressIndicator(color: Colors.white,) :const Text(
+                            'Sign In',
+                          ),
+                        );
+
+
                       },
-                      style: ConstEButton.Ebutton,
-                      child: const Text(
-                        'Sign In',
-                      ),
+
                     )),
                 const SizedBox(
                   height: 8,

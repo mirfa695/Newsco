@@ -27,13 +27,56 @@ class MyProfilePage extends StatelessWidget {
                   )),
             ),
             const SizedBox(height: 40,),
-           FutureBuilder(future: context.read<FirestoreProvider>().getData(),
+           FutureBuilder(future: context.read<FirestoreProvider>().getUser(context),
                builder: ( context,snapshot){
              if(snapshot.hasData){
-                     print(snapshot.data!);
-                return Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),border: Border.all(width: 1)),
-                  child:  Text(snapshot.data!.data()!["email"].toString()),
+                return Column(
+                  children: [
+                    Container(
+                      height: 50,width: 300,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(width: 1)),
+                      child:  Row(
+                        children: [
+                          Container(height: 50,width: 100,decoration:
+                          BoxDecoration(color: ConstColors.constrColor,
+                              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),topLeft: Radius.circular(10))),
+                          child: Center(child: Text('Name',style: TextStyle(color: Colors.white,fontSize: 18),)),),
+                          SizedBox(width: 20,),
+                          Text(snapshot.data!.data()!["name"].toString()),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Container(
+                      height: 50,width: 300,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(width: 1)),
+                      child:  Row(
+                        children: [
+                          Container(height: 50,width: 100,decoration:
+                          BoxDecoration(color: ConstColors.constrColor,
+                              borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10),topLeft: Radius.circular(10))),
+                            child: const Center(child: Text('Email',style: TextStyle(color: Colors.white,fontSize: 18),)),),
+                          const SizedBox(width: 20,),
+                          Text(snapshot.data!.data()!["email"].toString()),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10,),
+                    Container(
+                      height: 50,width: 300,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),border: Border.all(width: 1)),
+                      child:  Row(
+                        children: [
+                          Container(height: 50,width: 100,decoration:
+                          BoxDecoration(color: ConstColors.constrColor,
+                              borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10),topLeft: Radius.circular(10))),
+                            child: Center(child: Text('D/O/B',style: TextStyle(color: Colors.white,fontSize: 18),)),),
+                          SizedBox(width: 20,),
+                          Text(snapshot.data!.data()!["dob"].toString()),
+                        ],
+                      ),
+                    ),
+                  ],
                 );
              }else{print('no data');}
              return const Text("Error");
